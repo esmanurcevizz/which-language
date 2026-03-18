@@ -111,6 +111,15 @@ ruby benchmark.rb --codex gemini --problem minigit --lang python --trials 1
 - figures: `artifacts/<codex>/<problem>/figures/`
 - generated code / build artifacts: `artifacts/<codex>/<problem>/generated/`
 
+### Installation
+
+### Windows Environment Setup
+If you are running the benchmarks on Windows, you can automatically install the required languages and compilers using the provided PowerShell script.
+
+Open your terminal as Administrator and run:
+```powershell
+.\scripts\install_windows.ps1
+
 ## What is already generalized
 
 ### Multiple problems
