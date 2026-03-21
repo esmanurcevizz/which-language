@@ -18,6 +18,13 @@ codexes:
       api_key: "${GOOGLE_API_KEY}"  # Or set directly: "your-api-key-here"
       model_name: "gemini-3.1-flash-lite-preview"
       cooldown_seconds: 1.2
+  aider:
+    enabled: true
+    class: AiderCodex
+    config:
+      # Get your API key from https://ai.google.dev/
+      gemini_api_key: "[Your API key here]"
+      model: gemini/gemini-2.5-pro
 
   openai:
     enabled: false
@@ -60,17 +67,6 @@ codexes:
   #     api_key: "${ALIBABA_API_KEY}"
   #     model_name: "qwen-3.5"  # Options: qwen-3-coder, qwen-3.5
   #     region: "us-west-1"  # Alibaba Cloud region
-
-  # Aider (CLI Tool - wraps other models)
-  # Priority: MEDIUM | Status: Planned
-  # Supports: 75+ models | Free tier: N/A (uses backend model)
-  # aider:
-  #   enabled: false
-  #   class: AiderCodex
-  #   config:
-  #     backend_model: "claude-opus"  # Or gpt-4o, deepseek, etc.
-  #     api_key: "${AIDER_API_KEY}"  # For the backend model
-  #     aider_path: "aider"  # Path to aider executable
 
   # Cline (CLI mode)
   # Priority: MEDIUM | Status: Planned
