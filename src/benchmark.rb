@@ -8,38 +8,19 @@ require 'open3'
 require 'timeout'
 require 'shellwords'
 require 'set'
-require_relative 'lib/codex_loader'
+require_relative '../lib/language_loader'
+require_relative '../lib/codex_loader'
 
 require 'dotenv'
 Dotenv.load
 
-BASE_DIR = File.expand_path(__dir__)
+BASE_DIR = File.expand_path('..', __dir__)
 PROBLEMS_DIR = File.join(BASE_DIR, 'problems')
 
 GO_DIR = File.join(Dir.home, '.local', 'go')
 NPM_PREFIX = File.join(Dir.home, '.local', 'npm')
 
-LANGUAGES = {
-  'rust'        => { exts: %w[rs],     version_cmd: 'rustc --version' },
-  'go'          => { exts: %w[go],     version_cmd: "go version" },
-  'c'           => { exts: %w[c h],    version_cmd: 'gcc --version | head -1' },
-  'typescript'  => { exts: %w[ts],     version_cmd: "tsc --version" },
-  'javascript'  => { exts: %w[js],     version_cmd: 'node --version' },
-  'java'        => { exts: %w[java],   version_cmd: 'java --version 2>&1 | head -1' },
-  'perl'        => { exts: %w[pl pm],  version_cmd: 'perl --version | head -2 | tail -1' },
-  'python'      => { exts: %w[py],     version_cmd: 'python3 --version' },
-  'python/mypy' => { exts: %w[py],     version_cmd: 'python3 --version && mypy --version',
-                     extra_prompt: 'Write fully type-annotated Python code. All functions must have complete type hints. ' \
-                                   'After passing the tests, also verify type correctness by running: mypy --strict *.py' },
-  'ruby'        => { exts: %w[rb],     version_cmd: 'ruby --version' },
-  'ruby/steep'  => { exts: %w[rb rbs], version_cmd: 'ruby --version && steep --version',
-                     extra_prompt: 'Write Ruby code with RBS type signatures. Create .rbs files for all Ruby source files. ' \
-                                   'After passing the tests, also verify type correctness by running: steep check' },
-  'lua'         => { exts: %w[lua],    version_cmd: 'lua -v' },
-  'scheme'      => { exts: %w[scm],    version_cmd: 'guile --version | head -1' },
-  'ocaml'       => { exts: %w[ml mli], version_cmd: 'ocaml --version' },
-  'haskell'     => { exts: %w[hs],     version_cmd: 'ghc --version' },
-}
+LANGUAGES = LanguageLoader.load_config
 
 TRIALS = 3
 

@@ -78,7 +78,7 @@ problems/<name>/
 }
 ```
 
-All 7 keys (`name`, `binary_name`, `v1_spec`, `v1_test`, `v1_prompt`, `v2_spec`, `v2_test`, `v2_prompt`) are **mandatory**. Missing keys → benchmark.rb aborts.
+All 7 keys (`name`, `binary_name`, `v1_spec`, `v1_test`, `v1_prompt`, `v2_spec`, `v2_test`, `v2_prompt`) are **mandatory**. Missing keys → `src/benchmark.rb` aborts.
 
 ### SPEC files rules
 
@@ -114,7 +114,8 @@ Use minigit as the reference when creating new problems.
 | `plan.md` | Living iteration plan — active experiments + backlog | Human + Agent |
 | `walkthrough.md` | Proof-of-work log — dated entries per iteration | Human + Agent |
 | `AGENT.md` | Contributor protocol — rules, conventions, checklists | Human |
-| `benchmark.rb` | Benchmark runner — the code the agent extends | Human + Agent |
+| `bin/which-language` | Unified CLI — orchestrates benchmark/report/plot | Human + Agent |
+| `src/benchmark.rb` | Benchmark runner — the code the agent extends | Human + Agent |
 | `lib/codexes/*.rb` | Codex adapters — the main extension point | Human + Agent |
 | `problems/*/` | Problem definitions — specs, tests, prompts | Human + Agent |
 

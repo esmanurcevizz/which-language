@@ -33,7 +33,7 @@ This is **mandatory**, not optional. Skipping documentation means the next contr
 
 ```
 5. Do the work (run benchmarks, add adapters, fix bugs, add problems)
-6. Run tests: bash scripts/run-all.sh <codex> <problem> --lang <lang> --trials 1
+6. Run tests: `bin/which-language run <codex> <problem> --lang <lang> --trials 1`
 7. Observe metrics: time, cost, LOC, pass rate
 ```
 
@@ -100,8 +100,8 @@ When adding support for a new AI coding system:
 - [ ] Implement `parse_metrics(raw_output)` if the API returns token/cost data
 - [ ] Add configuration block to `config/codexes.yml`
 - [ ] Add API key handling (env var expansion in config)
-- [ ] Test dry-run: `ruby benchmark.rb --codex <name> --lang python --trials 1 --dry-run`
-- [ ] Run 1 real trial: `bash scripts/run-all.sh <name> minigit --lang python --trials 1`
+- [ ] Test dry-run: `bin/which-language benchmark <name> minigit --lang python --trials 1 --dry-run`
+- [ ] Run 1 real trial: `bin/which-language run <name> minigit --lang python --trials 1`
 - [ ] Run 3+ trials for variance data
 - [ ] Document pricing in `CLAUDE.md`
 - [ ] Document the new adapter in relevant `.md` files (e.g., `program.md`, `README.md`) to update project context
@@ -125,7 +125,7 @@ When adding support for a new AI coding system:
 - Title format: `[component] Brief description` (e.g., `[codex] Add DeepSeek adapter`)
 - Include benchmark results if adding/modifying adapters
 - Keep PRs focused — one adapter or one problem per PR
-- Run `ruby benchmark.rb --dry-run` before submitting
+- Run `bin/which-language benchmark <name> minigit --dry-run` before submitting
 
 ---
 

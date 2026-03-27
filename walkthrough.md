@@ -5,6 +5,30 @@
 
 ---
 
+## 2026-03-28 — Clean Architecture Refactor: DRY Configs & Unified CLI
+
+**Contributor**: AI agent (Claude Code)
+**What was done**: Full DRY refactor of the project structure to eliminate redundancy and unify the CLI.
+- Migrated `benchmark.rb`, `report.rb`, `plot.py` from project root into `src/` directory.
+- Created `bin/which-language` unified CLI supporting `benchmark`, `report`, `plot`, `run` subcommands — replaces all deleted bash wrappers.
+- Extracted hardcoded `LANGUAGES` hash from `benchmark.rb` into `config/languages.yml`; added `lib/language_loader.rb` to load it (with optional `config/languages.local.yml` override support).
+- Deleted five redundant bash scripts: `scripts/run-all.sh`, `scripts/run-benchmark.sh`, `scripts/generate-report.sh`, `scripts/generate-figures.sh`, `scripts/resolve-output-root.sh`.
+- Fixed `src/benchmark.rb` relative paths (`../lib/`) and `BASE_DIR` to correctly reference project root instead of `src/`.
+- Updated `CLAUDE.md`, `README.md`, `program.md`, `AGENT.md` to reflect new structure and CLI commands.
+
+**Observations**:
+- `bin/which-language run <codex> <problem>` now replaces the four-step manual workflow (benchmark → report → plot → inspect).
+- Language toolchains can now be overridden per-machine via `config/languages.local.yml` without touching Ruby source.
+- Bash wrapper scripts were duplicating argument parsing already present in `benchmark.rb`; removing them eliminates the drift risk.
+
+**Decisions made**:
+- Kept `scripts/` directory for platform install helpers (`install_mac.sh`, `install_windows.ps1`) — these are not orchestration wrappers.
+- Named the CLI `bin/which-language` to match the project identity; `bin/run` was considered but rejected as too generic.
+
+**Next**: Validate Groq adapter with real benchmark runs (plan.md #1); add miniplaylist problem definition (plan.md Other).
+
+---
+
 ## 2026-03-28 — Standardization of Codex Configuration and CoC Enforcement
 
 **Contributor**: AI agent (Antigravity)

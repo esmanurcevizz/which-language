@@ -9,16 +9,12 @@ Multi-codex benchmark that has various AI coding assistants (Claude Code, Gemini
 ## Repository Structure
 
 ```
-benchmark.rb         # Benchmark runner (Ruby)
-report.rb            # Report generator (results.json -> report.md)
-plot.py              # Graph generator (results.json -> figures/*.png)
-problems/
-  minigit/
-    problem.json     # Problem-specific prompt + asset config
-    SPEC-v1.txt      # v1 spec
-    SPEC-v2.txt      # v2 spec (extends v1)
-    test-v1.sh       # v1 test suite
-    test-v2.sh       # v2 test suite
+bin/
+  which-language     # Unified CLI entry point (benchmark / report / plot / run)
+src/
+  benchmark.rb       # Benchmark runner (Ruby)
+  report.rb          # Report generator (results.json -> report.md)
+  plot.py            # Graph generator (results.json -> figures/*.png)
 lib/
   codexes/
     base_codex.rb    # Abstract interface
@@ -28,8 +24,17 @@ lib/
     groq_codex.rb    # Groq API adapter
     aider_codex.rb   # Aider CLI adapter
   codex_loader.rb    # Loads and instantiates adapters
+  language_loader.rb # Loads language config from YAML
 config/
   codexes.yml        # Codex configuration
+  languages.yml      # Language toolchain configuration
+problems/
+  minigit/
+    problem.json     # Problem-specific prompt + asset config
+    SPEC-v1.txt      # v1 spec
+    SPEC-v2.txt      # v2 spec (extends v1)
+    test-v1.sh       # v1 test suite
+    test-v2.sh       # v2 test suite
 artifacts/
   <codex>/<model>/<problem>/
     generated/       # Generated source/build artifacts
@@ -42,24 +47,22 @@ The `data` branch (orphan) contains generated artifacts and logs.
 
 ## How It Works
 
-1. Run `ruby benchmark.rb`
+1. Run `bin/which-language run <codex> <problem>`
 2. For each language × trial:
    - v1: Create working dir, copy problem assets, invoke the selected codex
    - v2: Copy v1 result, invoke the codex to extend
 3. Run test scripts independently to verify
 4. Measure wall-clock time, LOC, token usage, and cost
-5. Run `ruby report.rb` to generate the report
-6. Run `python3 plot.py` to generate graphs
+5. Report and figures are generated automatically by the `run` subcommand
 
 ## Key Commands
 
 ```bash
-ruby benchmark.rb                                    # All languages × 3 trials (default: claude)
-ruby benchmark.rb --lang python --trials 1           # Single language test
-ruby benchmark.rb --codex gemini --lang ruby         # Use Gemini
-ruby benchmark.rb --dry-run                          # Dry run
-ruby benchmark.rb --help                             # Show all options
-bash scripts/run-all.sh gemini minigit --lang python --trials 1
+bin/which-language run claude minigit                        # Full pipeline (default: all langs × 3 trials)
+bin/which-language benchmark claude minigit --lang python --trials 1  # Benchmark only
+bin/which-language report claude minigit                     # Generate report from existing results
+bin/which-language plot claude minigit                       # Generate figures from existing results
+bin/which-language benchmark claude minigit --dry-run        # Dry run (no API calls)
 ```
 
 Prefer `config/codexes.local.yml` for local secrets and enablement overrides.
@@ -75,7 +78,7 @@ Each codex adapter implements:
 To add a new codex:
 1. Create `lib/codexes/your_codex.rb` extending `BaseCodex`
 2. Add configuration to `config/codexes.yml`
-3. Run: `ruby benchmark.rb --codex your_codex`
+3. Run: `bin/which-language benchmark your_codex minigit --dry-run`
 
 See [AGENT.md](./AGENT.md) for the full integration checklist.
 
@@ -117,7 +120,7 @@ See [plan.md](./plan.md) for planned codex integrations and current experiment s
 
 `rust`, `go`, `c`, `typescript`, `javascript`, `java`, `perl`, `python`, `python/mypy`, `ruby`, `ruby/steep`, `lua`, `scheme`, `ocaml`, `haskell`
 
-To add a language, add an entry to the `LANGUAGES` hash in `benchmark.rb`.
+To add a language, add an entry to `config/languages.yml`.
 
 ## Problem Model
 

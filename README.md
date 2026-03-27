@@ -50,11 +50,11 @@ export GOOGLE_API_KEY="your-key-here"
 ### 3️⃣ Run Your First Benchmark
 Test the waters with a lightning-fast dry run:
 ```bash
-bash scripts/run-all.sh gemini minigit --dry-run --lang python --trials 1
+bin/which-language run gemini minigit --dry-run --lang python --trials 1
 ```
 Or unleash the full power for a real benchmark:
 ```bash
-bash scripts/run-all.sh gemini minigit --lang python --trials 1
+bin/which-language run gemini minigit --lang python --trials 1
 ```
 
 *Your pristine outputs, including raw data, markdown reports, and gorgeous PNG graphs will be waiting for you in the `artifacts/` directory. You are now officially a benchmark runner!*
@@ -73,7 +73,7 @@ Think of this initiative as a living, breathing matrix. Every benchmark run is a
 |----------|------------|---------|
 | 🎯 **Problem** | `problems/<problem>/problem.json` + assets | `minigit`, `minigrades` |
 | 🧠 **Codex** | `lib/codexes/*.rb` + `config/codexes*.yml` | `claude`, `gemini`, `openai` |
-| 🗣️ **Language**| `LANGUAGES` in `benchmark.rb` | `python`, `rust`, `ruby/steep` |
+| 🗣️ **Language**| `config/languages.yml` | `python`, `rust`, `ruby/steep` |
 
 ---
 
@@ -101,6 +101,7 @@ We are constantly expanding our coverage. Here is where the initiative stands to
 ### 🎯 The Arena (Problems)
 - 💾 **minigit** — Minimal version control system
 - 🎓 **minigrades** — Student grade manager
+- 🎵 **miniplaylist** — Playlist management system
 
 ---
 
@@ -110,17 +111,14 @@ Command the benchmarking pipeline like a pro:
 
 ```bash
 # 🔥 Full pipeline (benchmark + report + figures)
-bash scripts/run-all.sh gemini minigit --lang python --trials 1
+bin/which-language run gemini minigit --lang python --trials 1
 
 # 🏃 Benchmark only 
-bash scripts/run-benchmark.sh gemini minigit --lang python --trials 1
-
-# 🔬 Raw runner
-ruby benchmark.rb --codex gemini --problem minigit --lang python --trials 1
+bin/which-language benchmark gemini minigit --lang python --trials 1
 
 # ⚔️ Epic Codex Battles (Compare systems head-to-head)
-bash scripts/run-all.sh claude minigit --lang python --trials 3
-bash scripts/run-all.sh gemini minigit --lang python --trials 3
+bin/which-language run claude minigit --lang python --trials 3
+bin/which-language run gemini minigit --lang python --trials 3
 ```
 
 ---
@@ -142,7 +140,7 @@ Want your face on the Hall of Fame? See our strict but fair [Contributor Protoco
 - **Codex Whisperers:** Implement new adapters in `lib/codexes`
 - **Data Scientists:** Run benchmarks on your machines and submit results
 - **Problem Architects:** Design new, brutal testing scenarios in `problems/`
-- **Linguists:** Add support for new programming languages to `LANGUAGES`
+- **Linguists:** Add support for new programming languages to `config/languages.yml`
 
 ---
 
@@ -152,13 +150,13 @@ For the curious minds, here is how our engine is built:
 
 ```text
 .
-├── benchmark.rb          # The core runner
-├── report.rb             # Automated report generator
-├── plot.py               # Gorgeous graph generator
+├── bin/                  # CLI Application binaries (which-language)
+├── src/                  # Core application scripts (benchmark, report, plot)
 ├── problems/             # The arena: problem definitions
 ├── lib/codexes/          # The minds: codex adapters
 ├── config/codexes.yml    # Codex configuration layer
-├── scripts/              # Productivity accelerators
+├── config/languages.yml  # Languages and toolchain configuration
+├── scripts/              # Productivity accelerators (installers)
 ├── program.md            # Agent entry point 
 ├── AGENT.md              # Contributor protocol & rules
 ├── plan.md               # Living iteration roadmap

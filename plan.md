@@ -51,12 +51,12 @@
 - [ ] Add mini-playlist problem (listed in README but missing from problems/)
 - [ ] Fix README.md broken markdown (unclosed code block in Installation section)
 - [ ] Multi-codex ensemble experiments
+- [ ] Add `config/languages.local.yml` override support documentation for end-users
 
 ## Open questions
 
-1. Should `LANGUAGES` hash move from `benchmark.rb` to a data file (`config/languages.yml`)?
-2. Is the two-phase (v1 → v2) model sufficient, or do we need v3+ for complex problems?
-3. How to handle rate limiting across codex APIs in large benchmark runs?
+1. Is the two-phase (v1 → v2) model sufficient, or do we need v3+ for complex problems?
+2. How to handle rate limiting across codex APIs in large benchmark runs?
 
 ## Benchmark metrics (per codex)
 
@@ -78,6 +78,7 @@
 - [x] Multi-codex architecture refactor
 - [x] Documentation infrastructure (program.md, AGENT.md, plan.md, walkthrough.md)
 - [x] DRY consolidation (merged ROADMAP, INDEX, QUICK_START, CODEX_COMPARISON)
+- [x] Clean Architecture refactor: `src/` migration, `bin/which-language` unified CLI, `config/languages.yml` extraction, bash scripts removed
 
 ## References
 
