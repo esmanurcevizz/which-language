@@ -88,7 +88,7 @@ if __name__ == "__main__":
                 print(search_contact(sys.argv[2]))
         elif cmd == "clear": 
             print(clear_contacts())
-        # V0'dan gelen ve hala gelistirilme asamasinda olanlar
+       # Commands carried over from V0 and still under development:
         elif cmd == "delete" or cmd == "export": 
             print(show_not_implemented(cmd))
         else: 
