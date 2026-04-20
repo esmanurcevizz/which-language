@@ -1,4 +1,4 @@
-PROJECT: mini-contacts
+PROJECT: minicontacts
 AUTHOR: Esmanur Ceviz (251478077)
 VERSION: v1
 DATE: 2026-03-16
