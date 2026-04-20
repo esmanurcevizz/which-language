@@ -11,4 +11,8 @@
   "v2_solution": "solution_v2.py",
   "v2_test": "test_v2.py",
   "v2_prompt": "Read spec_v2.txt and extend your existing {{binary_name}} program to support 'list', 'search', and 'clear' commands using loops for data processing."
+  "v3_spec": "SPEC-v3.txt",
+  "v3_solution": "solution_v3.py",
+  "v3_test": "test_v3.sh",
+  "v3_prompt": "Read SPEC-v3.txt and extend the {{binary_name}} program to include 'delete', 'update', and 'count' functionalities while ensuring data persistence and removing hyphens from the project name."
 }
