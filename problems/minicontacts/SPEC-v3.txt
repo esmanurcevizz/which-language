@@ -1,0 +1,47 @@
+
+PROJECT: minicontacts
+AUTHOR: Esmanur Ceviz
+VERSION: v3
+DATE: 2026-04-20
+
+========================================
+OVERVIEW
+========================================
+MiniContacts is a command-line interface (CLI) tool for persistent 
+contact management. This version (v3) introduces new capabilities 
+to delete and update existing contact information.
+
+========================================
+DATA FORMAT
+========================================
+File: .minicontacts/contacts.dat
+Format: id|name|phone|email
+
+========================================
+COMMANDS (v3)
+========================================
+
+--- init ---
+Usage: python solution_v3.py init
+Action: Creates the database directory and the data file.
+
+--- add ---
+Usage: python solution_v3.py add "Name" "Phone" "Email"
+Action: Appends a new contact with an auto-incremented ID.
+
+--- list ---
+Usage: python solution_v3.py list
+Action: Displays all contacts in a formatted list using loops.
+
+--- search ---
+Usage: python solution_v3.py search "Keyword"
+Action: Finds and displays matches using loops (Case-insensitive).
+
+--- delete --- (New in v3)
+Action: Removes the record associated with the given ID.
+
+--- update --- (New in v3)
+Action: Modifies the existing record while keeping the same ID.
+
+--- count --- (New in v3)
+Action: Displays the total number of contacts in the database.
